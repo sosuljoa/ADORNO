@@ -1,0 +1,39 @@
+nav{
+      background-color: #333;
+
+      }
+
+      header{
+
+        background-color: olive;
+        text-align: center;
+      }
+      section{
+  background-color: beige;
+      }
+
+      footer{
+        background-color: #9f9d9d;
+        text-align: center;
+      }
+
+      article{
+        background-color: aliceblue;
+      }
+
+      a{
+      color: #ffffff;
+      }
+
+      h1{
+        color: white;
+      }
+
+     *{
+        font-family: 'Courier New', Courier, monospace;
+        
+     }
+
+
+
+
