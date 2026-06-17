@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오르 보청기 — Adorno</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    .detail-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .detail-gallery { position: sticky; top: 100px; }
+    .main-img { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 100px; color: rgba(200,169,126,0.4); background: linear-gradient(135deg, #1a1a2e, #2d2640); margin-bottom: 16px; position: relative; overflow: hidden; }
+    .thumb-row { display: flex; gap: 10px; }
+    .thumb { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(200,169,126,0.35); cursor: pointer; border: 1px solid transparent; transition: border-color 0.2s; }
+    .thumb:hover, .thumb.active { border-color: var(--accent); }
+    .breadcrumb { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .detail-info h1 { font-family: var(--font-display); font-size: clamp(38px, 5vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 12px; }
+    .detail-price { font-family: var(--font-display); font-size: 28px; color: var(--accent); margin-bottom: 32px; }
+    .detail-desc { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 36px; }
+    .option-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .color-options { display: flex; gap: 10px; margin-bottom: 32px; }
+    .color-chip { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s, transform 0.2s; }
+    .color-chip:hover { transform: scale(1.1); }
+    .color-chip.active { border-color: var(--accent); }
+    .chip-black { background: #1a1a2e; }
+    .chip-rose  { background: #7a4a5a; }
+    .height-btn { padding: 8px 18px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .height-btn:hover { border-color: var(--white); color: var(--white); }
+    .height-btn.active { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 600; }
+    .qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .qty-box { display: flex; align-items: center; gap: 0; border: 1px solid var(--border); }
+    .qty-box button { width: 40px; height: 44px; background: transparent; border: none; color: var(--white); font-size: 20px; cursor: pointer; transition: color 0.2s; }
+    .qty-box button:hover { color: var(--accent); }
+    .qty-box span { width: 48px; text-align: center; font-size: 16px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); line-height: 44px; }
+    .btn-cart-detail { flex: 1; padding: 14px 0; background: var(--accent); color: var(--black); border: none; font-family: var(--font-body); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .btn-cart-detail:hover { background: var(--white); transform: translateY(-2px); }
+    .spec-section { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 36px; }
+    .spec-section h3 { font-family: var(--font-display); font-size: 24px; font-weight: 300; margin-bottom: 20px; }
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 12px 0; font-size: 14px; }
+    .spec-table td:first-child { color: var(--muted); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; width: 40%; }
+    .related-section { max-width: 1100px; margin: 0 auto; padding: 60px 48px 100px; border-top: 1px solid var(--border); }
+    .related-section h2 { font-family: var(--font-display); font-size: 36px; font-weight: 300; margin-bottom: 36px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    @media (max-width: 900px) { .detail-wrap { grid-template-columns: 1fr; gap: 40px; padding: 120px 20px 60px; } .detail-gallery { position: static; } .related-section { padding: 40px 20px 60px; } .related-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .related-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">ADORNO</div>
+    <ul>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#catalog">Shop</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </nav>
+
+  <div class="detail-wrap">
+    <div class="detail-gallery">
+      <div class="main-img" id="mainImg">
+        <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png" alt="오르 보청기">
+      </div>
+      <div class="thumb-row">
+        <div class="thumb dark active" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png" alt="블루">
+        </div>
+        <div class="thumb rose" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_bklqavbklqavbklq%20%281%29.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_bklqavbklqavbklq%20%281%29.png" alt="로즈">
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-info">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html#catalog">Shop</a> &nbsp;/&nbsp; 보청기</p>
+      <h1>오르<br>보청기</h1>
+      <p class="detail-price" id="displayPrice">₩ 320,000</p>
+      <p class="detail-desc">귀에 걸치는 순간, 보청기가 주얼리가 됩니다. 오르(Ore)는 광물에서 영감을 받은 라인으로, 의료 등급 실리콘과 양극 산화 알루미늄으로 제작됩니다. 고음역대 명료도를 높인 디지털 보정 칩을 탑재해 일상 대화부터 음악 감상까지 선명하게 지원합니다.</p>
+
+      <p class="option-label">컬러 선택</p>
+      <div class="color-options">
+        <div class="color-chip chip-black active" title="미드나잇 블루" onclick="selectColor(320000, '미드나잇 블루', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png', 0)"></div>
+        <div class="color-chip chip-rose" title="로즈 골드" onclick="selectColor(340000, '로즈 골드', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_bklqavbklqavbklq%20%281%29.png', 1)"></div>
+      </div>
+      <p class="option-label" id="colorLabel" style="margin-bottom:24px">미드나잇 블루</p>
+
+      <p class="option-label">착용 귀 선택</p>
+      <div class="ear-options" id="earOptions" style="display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap">
+        <button class="height-btn active" onclick="selectEar(this, 1)">왼쪽 귀</button>
+        <button class="height-btn" onclick="selectEar(this, 1)">오른쪽 귀</button>
+        <button class="height-btn" onclick="selectEar(this, 2)">양쪽 (세트)</button>
+      </div>
+
+      <div class="qty-row" style="margin-top:4px">
+        <div class="qty-box">
+          <button onclick="changeQty(-1)">−</button>
+          <span id="qtyDisplay">1</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-cart-detail" onclick="addToCart()">장바구니 담기</button>
+      </div>
+
+      <div class="spec-section">
+        <h3>제품 사양</h3>
+        <table class="spec-table">
+          <tr><td>타입</td><td>귀걸이형 (BTE)</td></tr>
+          <tr><td>칩</td><td>24채널 디지털 DSP</td></tr>
+          <tr><td>배터리</td><td>충전식 리튬이온, 최대 18시간</td></tr>
+          <tr><td>소재</td><td>의료용 실리콘 + 양극 산화 알루미늄</td></tr>
+          <tr><td>방수</td><td>IP54</td></tr>
+          <tr><td>블루투스</td><td>5.2 (iOS / Android 호환)</td></tr>
+          <tr><td>무게</td><td>4.2g (이어피스 제외)</td></tr>
+          <tr><td>보증</td><td>2년</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <p class="section-label">You may also like</p>
+    <h2>함께 보면 좋은 제품</h2>
+    <div class="related-grid">
+      <div class="product-card" data-category="cane">
+        <a href="product-cane.html">
+          <div class="product-img cane-img">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png" alt="바스통 지팡이">
+          </div>
+        </a>
+        <div class="product-info"><p class="product-cat">지팡이</p><h3>바스통 지팡이</h3><p class="product-color">갤럭시 블루</p>
+          <div class="product-footer"><span class="product-price">₩ 89,000</span><button class="add-cart" onclick="addRelated('바스통 지팡이 — 갤럭시 블루', 89000)">+ 담기</button></div>
+        </div>
+      </div>
+      <div class="product-card" data-category="wheel">
+        <a href="product-wheel.html">
+          <div class="product-img wheel-img">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="루에 휠 커버">
+          </div>
+        </a>
+        <div class="product-info"><p class="product-cat">휠체어 데칼</p><h3>루에 휠 커버</h3><p class="product-color">플로럴 그래픽</p>
+          <div class="product-footer"><span class="product-price">₩ 55,000</span><button class="add-cart" onclick="addRelated('루에 휠 커버 — 플로럴 그래픽', 55000)">+ 담기</button></div>
+        </div>
+      </div>
+      <div class="product-card" data-category="wheel">
+        <a href="product-wheel.html?pattern=mono">
+          <div class="product-img wheel-img mono">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png" alt="루에 휠 커버">
+          </div>
+        </a>
+        <div class="product-info"><p class="product-cat">휠체어 데칼</p><h3>루에 휠 커버</h3><p class="product-color">갤럭시 그래픽</p>
+          <div class="product-footer"><span class="product-price">₩ 55,000</span><button class="add-cart" onclick="addRelated('루에 휠 커버 — 갤럭시 그래픽', 55000)">+ 담기</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner"><p class="footer-logo">ADORNO</p><p class="footer-sub">Design for every body</p><p class="footer-copy">© 2026 Adorno. All rights reserved.</p></div>
+  </footer>
+
+  <div class="toast" id="toast">장바구니에 추가되었습니다 ✓</div>
+
+  <script>
+    let cart = JSON.parse(sessionStorage.getItem('adornoCart') || '[]');
+    let qty = 1;
+    let selectedColor = '미드나잇 블루';
+    let basePrice = 320000;
+    let selectedPrice = 320000;
+    let selectedEar = '왼쪽 귀';
+    let earMultiplier = 1;
+
+    function updateCartCount() { document.getElementById('cartCount').textContent = cart.reduce((s,i) => s + i.qty, 0); }
+    function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qtyDisplay').textContent = qty; }
+    function selectEar(btn, multiplier) {
+      selectedEar = btn.textContent;
+      earMultiplier = multiplier;
+      document.querySelectorAll('#earOptions .height-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const finalPrice = basePrice * earMultiplier;
+      document.getElementById('displayPrice').textContent = '₩ ' + finalPrice.toLocaleString() + (earMultiplier === 2 ? ' (×2)' : '');
+      selectedPrice = finalPrice;
+    }
+    
+    function selectColor(price, label, el, imageUrl, thumbIndex) {
+      selectedColor = label;
+      basePrice = price;
+      selectedPrice = price * earMultiplier;
+      document.getElementById('displayPrice').textContent = '₩ ' + selectedPrice.toLocaleString() + (earMultiplier === 2 ? ' (×2)' : '');
+      document.getElementById('colorLabel').textContent = label;
+      document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+      if(el) el.classList.add('active');
+      switchImage(imageUrl, document.querySelectorAll('.thumb')[thumbIndex]);
+    }
+
+    function switchImage(imageUrl, el) {
+      document.querySelector('#mainImg img').src = imageUrl;
+      if (el) {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+      }
+    }
+
+    function addToCart() {
+      const name = `오르 보청기 — ${selectedColor} / ${selectedEar}`;
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty += qty;
+      else cart.push({ name, price: selectedPrice, qty });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount();
+      showToast();
+    }
+    function addRelated(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty++;
+      else cart.push({ name, price, qty: 1 });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount();
+      showToast();
+    }
+    function showToast() { const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+    updateCartCount();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('color') === 'rose') {
+        const roseChip = document.querySelector('.chip-rose');
+        selectColor(340000, '로즈 골드', roseChip, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_bklqavbklqavbklq%20%281%29.png', 1);
+      }
+    });
+  </script>
+</body>
+</html>

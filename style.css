@@ -1,92 +1,668 @@
-     *{
-        font-family: 'Courier New', Courier, monospace;
-        
-     }
+/* ===========================
+   ADORNO — Global Styles
+   =========================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-     body{
-      margin:0;
-     }
+:root {
+  --black:   #0d0d0d;
+  --white:   #f7f5f2;
+  --accent:  #c8a97e;   /* warm gold */
+  --muted:   #888580;
+  --surface: #1a1a1a;
+  --border:  #2e2e2e;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', Arial, sans-serif;
+}
 
-     nav{
-      background-color: #333;
+html { scroll-behavior: smooth; }
 
-      }
+body {
+  background-color: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+}
 
-      nav ul{
-       list-style: none;
-       text-align: center;
-       padding:20px;
-       margin-bottom:0;
-       padding-bottom: 30px;
-      }
+/* ===========================
+   NAV
+   =========================== */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background-color: rgba(13,13,13,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
 
-      nav ul li{
-        display: inline-block;
-        margin:0 15px;
-      }
+.logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  color: var(--white);
+}
 
-      nav a{
-      text-decoration: none;
-      }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 36px;
+}
 
-      nav a:hover{
-        text-decoration:underline;
-      }
+nav ul li a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
 
+nav ul li a:hover { color: var(--white); }
 
-      header{
+.nav-right .cart-icon {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-        background-color: olive;
-        text-align: center;
-        padding: 10px;
-      }
-      
-      section{
-      background-color: beige;
-      padding: 20px;
-      }
+.cart-count {
+  background: var(--accent);
+  color: var(--black);
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
 
-      footer{
-        background-color: #9f9d9d;
-        text-align: center;
-        padding: 10px;
-      }
+/* ===========================
+   HERO
+   =========================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 140px 48px 80px;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 70% 50%, #1f1a14 0%, var(--black) 65%);
+}
 
-      article{
-        background-color: aliceblue;
-        padding: 20px;
-        margin-bottom: 25px;
-        border-radius: 12px;
-        box-shadow: 0px 0px 7px 0px rgba(73,73,73,0.55);
-      }
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
 
-      a{
-      color: #ffffff;
-      }
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
 
-      h1{
-        color: white;
-      }
-      
-      h2{
-        color: darkolivegreen;
-      }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  color: var(--white);
+}
 
-      h4{
-        color: white;
-      }
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
 
-       .foot-p{
-        color: white;
-      }
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 480px;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
 
-      header p{
-        color: white;
-      }
+.btn-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--accent);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 0;
+  transition: background 0.2s, transform 0.2s;
+}
 
+.btn-primary:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+}
 
+/* 데코 링 — 시그니처 요소 */
+.hero-deco {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
 
+.deco-ring {
+  border-radius: 50%;
+  border: 1px solid;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 6s ease-in-out infinite;
+}
 
+.ring1 { width: 260px; height: 260px; border-color: rgba(200,169,126,0.35); animation-delay: 0s; }
+.ring2 { width: 380px; height: 380px; border-color: rgba(200,169,126,0.18); animation-delay: 1.5s; }
+.ring3 { width: 500px; height: 500px; border-color: rgba(200,169,126,0.08); animation-delay: 3s; }
 
+@keyframes pulse-ring {
+  0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.04); }
+}
 
+/* ===========================
+   SECTION COMMON
+   =========================== */
+.section-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
 
+/* ===========================
+   ABOUT
+   =========================== */
+.about-section {
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+
+.about-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.about-text { flex: 1; min-width: 280px; }
+
+.about-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.about-text p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.about-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.about-tags span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.about-tags span:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ===========================
+   CATALOG
+   =========================== */
+.catalog-section {
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+
+.catalog-header {
+  max-width: 1100px;
+  margin: 0 auto 56px;
+}
+
+.catalog-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+/* 필터 바 */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.filter-bar input {
+  padding: 10px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  border-radius: 0;
+  width: 240px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.filter-bar input:focus { border-color: var(--accent); }
+.filter-bar input::placeholder { color: var(--muted); }
+
+.filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.filter-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { border-color: var(--white); color: var(--white); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 600; }
+
+/* 상품 그리드 */
+.product-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2px;
+}
+
+.product-card {
+  background: var(--surface);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.product-card:hover { background: #222; }
+
+.product-img {
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 상품별 컬러 */
+.hearing-img        { background: linear-gradient(135deg, #1a1a2e, #2d2640); }
+.hearing-img.rose   { background: linear-gradient(135deg, #2e1a1a, #403040); }
+.cane-img           { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); }
+.cane-img.cream     { background: linear-gradient(135deg, #2a2620, #3a3630); }
+.wheel-img          { background: linear-gradient(135deg, #1a2a1a, #203820); }
+.wheel-img.mono     { background: linear-gradient(135deg, #1e1e1e, #303030); }
+
+.product-visual {
+  font-size: 64px;
+  color: rgba(200,169,126,0.4);
+  user-select: none;
+}
+
+.product-badge {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: var(--accent);
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+}
+
+.product-info {
+  padding: 20px 24px 24px;
+}
+
+.product-cat {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.product-info h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.product-color {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+}
+
+.add-cart {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-cart:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ===========================
+   CONTACT BANNER (메인용)
+   =========================== */
+.contact-banner {
+  border-top: 1px solid var(--border);
+  background: radial-gradient(ellipse at 60% 50%, #1c1508 0%, var(--black) 70%);
+  padding: 140px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-banner::before {
+  content: 'CONTACT';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(80px, 18vw, 220px);
+  font-weight: 600;
+  color: rgba(200,169,126,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 16px;
+  user-select: none;
+}
+
+.contact-banner-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.contact-banner-inner h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--white);
+}
+
+.contact-banner-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.btn-contact {
+  display: inline-block;
+  padding: 16px 52px;
+  background: var(--accent);
+  color: var(--black);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-contact:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .contact-banner { padding: 100px 20px; }
+}
+
+/* ===========================
+   CONTACT PAGE (전체 — contact.html용)
+   =========================== */
+.contact-section {
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.contact-form label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 15px;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: var(--muted); }
+
+.contact-form select option { background: var(--surface); }
+
+.contact-form input[type="submit"] {
+  margin-top: 32px;
+  background: var(--accent);
+  color: var(--black);
+  border: none;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: auto;
+  padding: 16px 48px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.contact-form input[type="submit"]:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 8px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.footer-sub {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===========================
+   TOAST
+   =========================== */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--accent);
+  color: var(--black);
+  padding: 12px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  nav ul { gap: 18px; }
+  .hero { padding: 120px 20px 60px; }
+  .hero-deco { display: none; }
+  .about-section,
+  .catalog-section,
+  .contact-section { padding: 60px 20px; }
+  .about-inner { gap: 40px; }
+  .product-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+  footer { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .filter-bar { flex-direction: column; align-items: flex-start; }
+  .filter-bar input { width: 100%; }
+}
+
+/* ===========================
+   추가된 이미지 공통 스타일 (크기 자동 조절)
+   =========================== */
+.main-img img, 
+.thumb img, 
+.product-img img, 
+.pattern-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 영역에 맞게 꽉 차도록 비율을 자동 조절 */
+  display: block;
+}
+
+/* 기존 배경색/기호가 이미지와 겹치지 않게 숨김 처리 */
+.main-img, .thumb, .product-img, .pattern-preview {
+  background: none !important; 
+  color: transparent !important;  
+  font-size: 0 !important;
+}

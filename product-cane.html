@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바스통 지팡이 — Adorno</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    .detail-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .detail-gallery { position: sticky; top: 100px; }
+    .main-img { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 100px; color: rgba(200,169,126,0.4); background: linear-gradient(135deg, #1a1a1a, #2a2a2a); margin-bottom: 16px; position: relative; overflow: hidden; }
+    .main-img.cream { background: linear-gradient(135deg, #2a2620, #3a3630); }
+    .thumb-row { display: flex; gap: 10px; }
+    .thumb { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(200,169,126,0.35); cursor: pointer; border: 1px solid transparent; transition: border-color 0.2s; }
+    .thumb:hover, .thumb.active { border-color: var(--accent); }
+    .thumb.black { background: linear-gradient(135deg, #1a1a1a, #2a2a2a); }
+    .thumb.cream { background: linear-gradient(135deg, #2a2620, #3a3630); }
+    .breadcrumb { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .detail-info h1 { font-family: var(--font-display); font-size: clamp(38px, 5vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 12px; }
+    .detail-price { font-family: var(--font-display); font-size: 28px; color: var(--accent); margin-bottom: 32px; }
+    .detail-desc { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 36px; }
+    .option-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .color-options { display: flex; gap: 10px; margin-bottom: 12px; }
+    .color-chip { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s, transform 0.2s; }
+    .color-chip:hover { transform: scale(1.1); }
+    .color-chip.active { border-color: var(--accent); }
+    .chip-black { background: #1a1a1a; }
+    .chip-cream { background: #d4c9b0; }
+    .height-options { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+    .height-btn { padding: 8px 18px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .height-btn:hover { border-color: var(--white); color: var(--white); }
+    .height-btn.active { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 600; }
+    .qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+    .qty-box { display: flex; align-items: center; border: 1px solid var(--border); }
+    .qty-box button { width: 40px; height: 44px; background: transparent; border: none; color: var(--white); font-size: 20px; cursor: pointer; transition: color 0.2s; }
+    .qty-box button:hover { color: var(--accent); }
+    .qty-box span { width: 48px; text-align: center; font-size: 16px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); line-height: 44px; }
+    .btn-cart-detail { flex: 1; padding: 14px 0; background: var(--accent); color: var(--black); border: none; font-family: var(--font-body); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .btn-cart-detail:hover { background: var(--white); transform: translateY(-2px); }
+    .spec-section { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 36px; }
+    .spec-section h3 { font-family: var(--font-display); font-size: 24px; font-weight: 300; margin-bottom: 20px; }
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 12px 0; font-size: 14px; }
+    .spec-table td:first-child { color: var(--muted); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; width: 40%; }
+    .related-section { max-width: 1100px; margin: 0 auto; padding: 60px 48px 100px; border-top: 1px solid var(--border); }
+    .related-section h2 { font-family: var(--font-display); font-size: 36px; font-weight: 300; margin-bottom: 36px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .hand-btn { padding: 8px 18px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .hand-btn:hover { border-color: var(--white); color: var(--white); }
+    .hand-btn.active { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 600; }
+    @media (max-width: 900px) { .detail-wrap { grid-template-columns: 1fr; gap: 40px; padding: 120px 20px 60px; } .detail-gallery { position: static; } .related-section { padding: 40px 20px 60px; } .related-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .related-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">ADORNO</div>
+    <ul>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#catalog">Shop</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </nav>
+
+  <div class="detail-wrap">
+    <div class="detail-gallery">
+      <div class="main-img" id="mainImg">
+        <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png" alt="바스통 지팡이">
+      </div>
+      <div class="thumb-row">
+        <div class="thumb black active" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png" alt="블랙">
+        </div>
+        <div class="thumb cream" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png" alt="크림">
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-info">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html#catalog">Shop</a> &nbsp;/&nbsp; 지팡이</p>
+      <h1>바스통<br>지팡이</h1>
+      <p class="detail-price">₩ 89,000</p>
+      <p class="detail-desc">바스통(Bâton)은 프랑스어로 '지휘봉'을 뜻합니다. 거리를 지휘하듯 걸어가세요. 항공 등급 알루미늄 샤프트에 천연 고무 그립을 조합해 가볍고 단단합니다. 높이는 5단계로 조절 가능하며, 접어서 가방에 넣을 수 있는 4-폴딩 구조입니다.</p>
+
+      <p class="option-label">컬러 선택</p>
+      <div class="color-options">
+        <div class="color-chip chip-black active" title="갤럭시 블루" onclick="selectColor('갤럭시 블루', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png', 0)"></div>
+        <div class="color-chip chip-cream" title="크림 화이트" onclick="selectColor('크림 화이트', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png', 1)"></div>
+      </div>
+      <p class="option-label" id="colorLabel" style="margin-bottom:24px">갤럭시 블루</p>
+
+      <p class="option-label">높이 선택</p>
+      <div class="height-options" id="heightOptions">
+        <button class="height-btn" onclick="selectHeight(this)">75cm</button>
+        <button class="height-btn active" onclick="selectHeight(this)">80cm</button>
+        <button class="height-btn" onclick="selectHeight(this)">85cm</button>
+        <button class="height-btn" onclick="selectHeight(this)">90cm</button>
+        <button class="height-btn" onclick="selectHeight(this)">95cm</button>
+      </div>
+
+      <p class="option-label" style="margin-top:8px">손잡이 방향</p>
+      <div class="hand-options" id="handOptions" style="display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap">
+        <button class="hand-btn active" onclick="selectHand(this)">왼손</button>
+        <button class="hand-btn" onclick="selectHand(this)">오른손</button>
+      </div>
+
+      <div class="qty-row">
+        <div class="qty-box">
+          <button onclick="changeQty(-1)">−</button>
+          <span id="qtyDisplay">1</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-cart-detail" onclick="addToCart()">장바구니 담기</button>
+      </div>
+
+      <div class="spec-section">
+        <h3>제품 사양</h3>
+        <table class="spec-table">
+          <tr><td>소재</td><td>항공 등급 알루미늄 6061 + 천연 고무 그립</td></tr>
+          <tr><td>구조</td><td>4-폴딩 접이식</td></tr>
+          <tr><td>높이 조절</td><td>75 – 95cm (5단계)</td></tr>
+          <tr><td>무게</td><td>230g</td></tr>
+          <tr><td>최대 하중</td><td>120kg</td></tr>
+          <tr><td>팁 소재</td><td>논슬립 고무 (교체 가능)</td></tr>
+          <tr><td>보증</td><td>1년</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <p class="section-label">You may also like</p>
+    <h2>함께 보면 좋은 제품</h2>
+    <div class="related-grid">
+      
+      <div class="product-card">
+        <a href="product-hearing.html"><div class="product-img hearing-img"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png" alt="오르 보청기"></div></a>
+        <div class="product-info"><p class="product-cat">보청기</p><h3>오르 보청기</h3><p class="product-color">미드나잇 블루</p><div class="product-footer"><span class="product-price">₩ 320,000</span><button class="add-cart" onclick="addRelated('오르 보청기 — 미드나잇 블랙', 320000)">+ 담기</button></div></div>
+      </div>
+      
+      <div class="product-card">
+        <a href="product-wheel.html"><div class="product-img wheel-img"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="루에 휠 커버"></div></a>
+        <div class="product-info"><p class="product-cat">휠체어 데칼</p><h3>루에 휠 커버</h3><p class="product-color">플로럴 그래픽</p><div class="product-footer"><span class="product-price">₩ 55,000</span><button class="add-cart" onclick="addRelated('루에 휠 커버 — 플로럴 그래픽', 55000)">+ 담기</button></div></div>
+      </div>
+      
+      <div class="product-card">
+        <a href="product-hearing.html?color=rose"><div class="product-img hearing-img rose"><img src="보청기_로즈_메인이미지_링크.jpg" alt="오르 보청기"></div></a>
+        <div class="product-info"><p class="product-cat">보청기</p><h3>오르 보청기</h3><p class="product-color">로즈 골드</p><div class="product-footer"><span class="product-price">₩ 340,000</span><button class="add-cart" onclick="addRelated('오르 보청기 — 로즈 골드', 340000)">+ 담기</button></div></div>
+     
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner"><p class="footer-logo">ADORNO</p><p class="footer-sub">Design for every body</p><p class="footer-copy">© 2026 Adorno. All rights reserved.</p></div>
+  </footer>
+
+  <div class="toast" id="toast">장바구니에 추가되었습니다 ✓</div>
+
+  <script>
+    let cart = JSON.parse(sessionStorage.getItem('adornoCart') || '[]');
+    let qty = 1; let selectedColor = '갤럭시 블루'; let selectedHeight = '80cm'; let selectedHand = '왼손';
+    function updateCartCount() { document.getElementById('cartCount').textContent = cart.reduce((s,i) => s + i.qty, 0); }
+    function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qtyDisplay').textContent = qty; }
+
+    function selectColor(label, el, imageUrl, thumbIndex) {
+      selectedColor = label;
+      document.getElementById('colorLabel').textContent = label;
+      document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('active'));
+      if(el) el.classList.add('active');
+      switchImage(imageUrl, document.querySelectorAll('.thumb')[thumbIndex]);
+    }
+    
+    function switchImage(imageUrl, el) {
+      document.querySelector('#mainImg img').src = imageUrl;
+      if (el) {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+      }
+    }
+
+    function selectHand(btn) { selectedHand = btn.textContent; document.querySelectorAll('#handOptions .hand-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+    function selectHeight(btn) { selectedHeight = btn.textContent; document.querySelectorAll('#heightOptions .height-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+    function addToCart() {
+      const name = `바스통 지팡이 — ${selectedColor} ${selectedHeight} / ${selectedHand}`;
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty += qty;
+      else cart.push({ name, price: 89000, qty });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount(); showToast();
+    }
+    function addRelated(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty++;
+      else cart.push({ name, price, qty: 1 });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount(); showToast();
+    }
+    function showToast() { const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+    updateCartCount();
+
+    // 페이지 로드 시 URL 파라미터 확인 후 크림화이트 자동 선택
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('color') === 'cream') {
+        const creamChip = document.querySelector('.chip-cream');
+        selectColor('크림 화이트', creamChip, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png', 1);
+      }
+    });
+  </script>
+</body>
+</html>

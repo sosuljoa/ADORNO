@@ -1,76 +1,242 @@
-<html>
-    <head>
-       <meta carset="utf-8">
-       <title>My Mini Website</title>
-       <link rel="stylesheet" href="style.css">
-    
-  </head>  
-    <body>
-<nav>
-<ul>
-  <li><a href="#hobby">Hobbies</a></li>
-  <li><a href="#photo"> Photos</a></li>
-  <li><a href="#video"> Video</a></li>
-  <li><a href="#place">Places</a></li>
-  </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adorno — 보조기기를 액세서리처럼</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
 
-<header>
-      <h1>My Mini Website</h1>
-      <p>Welcome to my simple website</p>
-      <p>I am student majoring in visual desine</p>
-</header>
+  <nav>
+    <div class="logo">ADORNO</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#catalog">Shop</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="cart.html" class="cart-icon">
+        🛒 <span class="cart-count" id="cartCount">0</span>
+      </a>
+    </div>
+  </nav>
 
-<section>
-  <article>
-      <h2>My Favorit Things</h2>
-      <ul>
-        <li>Book</li>
-        <li>Drawing</li>
-        <li>Cat</li>
-        <li>Dessert</li>
-      </ul>
-   </article>
-   <article>
-      <h2 id="hobby">My Hobbies</h2>
-      <ol>
-        <li>Reading books</li>
-        <li>Drawing Pictures</li>
-        <li>Watching YouTube videos</li>
-      </ol>
-   </article>
-   
-   <article>
-      <h2 id="photo">My Favorite Photo</h2>
-      <img src="images/cat/cat.jpg" width="300" alt="cat photo">
-      <img src="sea.jpg" width="300" alt="sea photo">
-     </article>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Design for every body</p>
+      <h1>보조기기는<br><em>액세서리다</em></h1>
+      <p class="hero-desc">휠체어, 지팡이, 보청기 — Adorno는 결함이 아닌 아름다움으로 <br>당신만의 스타일을 완성합니다.</p>
+      <a href="#catalog" class="btn-primary">컬렉션 보기</a>
+    </div>
+    <div class="hero-deco">
+      <div class="deco-ring ring1"></div>
+      <div class="deco-ring ring2"></div>
+      <div class="deco-ring ring3"></div>
+    </div>
+  </header>
 
-     <article>
-      <h2>My Favorit Website</h2>
-     <p> <a href="https://www.google.com/" target="_blank" style="color: #000000;">Google</a></p>
-     <p> <a href="https://www.naver.com/" target="_blank" style="color: #000000;">네이버</a></p>
-     <p> <a href="paga2.html" target="_blank" style="color: #000000;"> 두번째 페이지 바로가기 </a></p>
-    </article>
-    
-<article>
-<h2 id="video">My Favorit Video </h2>
-<p> This is one of the videos I enjoy Watching </p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oRscgsyiM8g?si=QsPyr2kkI1Cc04Ep" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</article>
+  <section id="about" class="about-section">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">About Adorno</p>
+        <h2>필요에서 시작해,<br>스타일로.</h2>
+        <p>Adorno는 불편함을 감추는 대신, 드러내고 빛나게 합니다. 기능은 그대로, 감각은 한층 더.</p>
+      </div>
+      <div class="about-tags">
+        <span>의료 등급 소재</span>
+        <span>한정 컬러웨이</span>
+        <span>커스텀 옵션</span>
+        <span>국내 제조</span>
+      </div>
+    </div>
+  </section>
 
-<article>
-<h2 id="place">My favorit Places</h2>
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3258.2358694405157!2d128.89860257558252!3d35.250387372729406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568b8acfc25b357%3A0xc3d01c491a811dee!2z7J247KCc64yA7ZWZ6rWQIOq5gO2VtOy6oO2NvOyKpA!5e0!3m2!1sko!2skr!4v1774449583729!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</article>
-</section>
+  <section id="catalog" class="catalog-section">
+    <div class="catalog-header">
+      <p class="section-label">Shop</p>
+      <h2>컬렉션</h2>
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="상품 검색..." oninput="filterProducts()">
+        <div class="filter-btns">
+          <button class="filter-btn active" onclick="filterCategory('all', this)">전체</button>
+          <button class="filter-btn" onclick="filterCategory('hearing', this)">보청기</button>
+          <button class="filter-btn" onclick="filterCategory('cane', this)">지팡이</button>
+          <button class="filter-btn" onclick="filterCategory('wheel', this)">휠체어 데칼</button>
+        </div>
+      </div>
+    </div>
 
-<footer>
-<h4>Contact information</h4>
-<p class="foot-p">Email: <a href= "mailto:swhwang81@gmail.com">swhwang81@gmail.com</a></p>
-<p class="foot-p">Phone <a href="tel:010-1234-5678">: 010-1234-5678</a></p>
-<p class="foot-p"><a href="paga2.html" target="blank">상담문의</a></p>
-</footer>
+    <div class="product-grid" id="productGrid">
+      <div class="product-card" data-category="hearing" data-name="오르 보청기 — 미드나잇 블루">
+        <a href="product-hearing.html">
+          <div class="product-img hearing-img">
+            <span class="product-badge">NEW</span>
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png" alt="오르 보청기 미드나잇 블루">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">보청기</p>
+          <h3>오르 보청기</h3>
+          <p class="product-color">미드나잇 블루</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 320,000</span>
+            <button class="add-cart" onclick="addToCart('오르 보청기 — 미드나잇 블루', 320000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="product-card" data-category="hearing" data-name="오르 보청기 — 로즈 골드">
+        <a href="product-hearing.html?color=rose">
+          <div class="product-img hearing-img rose">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_bklqavbklqavbklq%20%281%29.png" alt="오르 보청기 로즈 골드">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">보청기</p>
+          <h3>오르 보청기</h3>
+          <p class="product-color">로즈 골드</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 340,000</span>
+            <button class="add-cart" onclick="addToCart('오르 보청기 — 로즈 골드', 340000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="cane" data-name="바스통 지팡이 — 갤럭시 블루">
+        <a href="product-cane.html">
+          <div class="product-img cane-img">
+            <span class="product-badge">BEST</span>
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png" alt="바스통 지팡이 매트 블랙">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">지팡이</p>
+          <h3>바스통 지팡이</h3>
+          <p class="product-color">갤럭시 블루</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 89,000</span>
+            <button class="add-cart" onclick="addToCart('바스통 지팡이 — 갤럭시 블루', 89000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="cane" data-name="바스통 지팡이 — 크림 화이트">
+        <a href="product-cane.html?color=cream">
+          <div class="product-img cane-img cream">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png" alt="바스통 지팡이 크림 화이트">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">지팡이</p>
+          <h3>바스통 지팡이</h3>
+          <p class="product-color">크림 화이트</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 89,000</span>
+            <button class="add-cart" onclick="addToCart('바스통 지팡이 — 크림 화이트', 89000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="wheel" data-name="루에 휠 커버 — 플로럴 그래픽">
+        <a href="product-wheel.html">
+          <div class="product-img wheel-img">
+            <span class="product-badge">NEW</span>
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="루에 휠 커버 플로럴 그래픽">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">휠체어 데칼</p>
+          <h3>루에 휠 커버</h3>
+          <p class="product-color">플로럴 그래픽</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 55,000</span>
+            <button class="add-cart" onclick="addToCart('루에 휠 커버 — 플로럴 그래픽', 55000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="wheel" data-name="루에 휠 커버 — 갤럭시 그래픽">
+        <a href="product-wheel.html?pattern=mono">
+          <div class="product-img wheel-img mono">
+            <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png" alt="루에 휠 커버 모노 스트라이프">
+          </div>
+        </a>
+        <div class="product-info">
+          <p class="product-cat">휠체어 데칼</p>
+          <h3>루에 휠 커버</h3>
+          <p class="product-color">갤럭시 그래픽</p>
+          <div class="product-footer">
+            <span class="product-price">₩ 55,000</span>
+            <button class="add-cart" onclick="addToCart('루에 휠 커버 — 갤럭시 그래픽', 55000)">+ 담기</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact" class="contact-banner">
+    <div class="contact-banner-inner">
+      <p class="section-label">Contact</p>
+      <h2>당신의 이야기를<br>들려주세요.</h2>
+      <p class="contact-banner-sub">제품 문의, 커스텀 주문, 배송 문의 모두 환영합니다.</p>
+      <a href="contact.html" class="btn-contact">문의하기 →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-logo">ADORNO</p>
+      <p class="footer-sub">Design for every body</p>
+      <p class="footer-copy">© 2026 Adorno. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">장바구니에 추가되었습니다 ✓</div>
+
+  <script>
+    let cart = JSON.parse(sessionStorage.getItem('adornoCart') || '[]');
+
+    function updateCartCount() {
+      document.getElementById('cartCount').textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+    }
+
+    function addToCart(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty++;
+      else cart.push({ name, price, qty: 1 });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount();
+      showToast();
+    }
+
+    function showToast() {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    let currentCategory = 'all';
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterProducts();
+    }
+
+    function filterProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const matchCat = currentCategory === 'all' || card.dataset.category === currentCategory;
+        const matchSearch = card.dataset.name.toLowerCase().includes(query);
+        card.style.display = (matchCat && matchSearch) ? '' : 'none';
+      });
+    }
+
+    updateCartCount();
+  </script>
 </body>
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>루에 휠 커버 — Adorno</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    .detail-wrap { max-width: 1100px; margin: 0 auto; padding: 140px 48px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .detail-gallery { position: sticky; top: 100px; }
+    .main-img { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 100px; color: rgba(200,169,126,0.4); background: linear-gradient(135deg, #1a2a1a, #203820); margin-bottom: 16px; position: relative; overflow: hidden;}
+    .main-img.mono { background: linear-gradient(135deg, #1e1e1e, #303030); }
+    .thumb-row { display: flex; gap: 10px; }
+    .thumb { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(200,169,126,0.35); cursor: pointer; border: 1px solid transparent; transition: border-color 0.2s; }
+    .thumb:hover, .thumb.active { border-color: var(--accent); }
+    .thumb.floral { background: linear-gradient(135deg, #1a2a1a, #203820); }
+    .thumb.mono   { background: linear-gradient(135deg, #1e1e1e, #303030); }
+    .breadcrumb { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--accent); }
+    .detail-info h1 { font-family: var(--font-display); font-size: clamp(38px, 5vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 12px; }
+    .detail-price { font-family: var(--font-display); font-size: 28px; color: var(--accent); margin-bottom: 32px; }
+    .detail-desc { font-size: 15px; color: var(--muted); line-height: 1.9; margin-bottom: 36px; }
+    .option-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .pattern-options { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .pattern-card { width: 100px; cursor: pointer; border: 1px solid var(--border); transition: border-color 0.2s; padding: 0; overflow: hidden; }
+    .pattern-card:hover { border-color: var(--white); }
+    .pattern-card.active { border-color: var(--accent); }
+    .pattern-preview { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(200,169,126,0.4); position: relative; overflow: hidden; }
+    .pattern-preview.floral { background: linear-gradient(135deg, #1a2a1a, #203820); }
+    .pattern-preview.mono   { background: linear-gradient(135deg, #1e1e1e, #303030); }
+    .pattern-name { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); padding: 6px 8px; text-align: center; }
+    .size-options { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+    .size-btn { padding: 8px 18px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-body); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+    .size-btn:hover { border-color: var(--white); color: var(--white); }
+    .size-btn.active { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 600; }
+    .qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+    .qty-note { font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+    .qty-box { display: flex; align-items: center; border: 1px solid var(--border); }
+    .qty-box button { width: 40px; height: 44px; background: transparent; border: none; color: var(--white); font-size: 20px; cursor: pointer; transition: color 0.2s; }
+    .qty-box button:hover { color: var(--accent); }
+    .qty-box span { width: 48px; text-align: center; font-size: 16px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); line-height: 44px; }
+    .btn-cart-detail { flex: 1; padding: 14px 0; background: var(--accent); color: var(--black); border: none; font-family: var(--font-body); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+    .btn-cart-detail:hover { background: var(--white); transform: translateY(-2px); }
+    .spec-section { margin-top: 48px; border-top: 1px solid var(--border); padding-top: 36px; }
+    .spec-section h3 { font-family: var(--font-display); font-size: 24px; font-weight: 300; margin-bottom: 20px; }
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 12px 0; font-size: 14px; }
+    .spec-table td:first-child { color: var(--muted); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; width: 40%; }
+    .install-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 36px; }
+    .install-section h3 { font-family: var(--font-display); font-size: 24px; font-weight: 300; margin-bottom: 20px; }
+    .install-steps { display: flex; flex-direction: column; gap: 14px; }
+    .install-step { display: flex; gap: 16px; align-items: flex-start; }
+    .step-num { font-family: var(--font-display); font-size: 28px; color: var(--accent); line-height: 1; min-width: 32px; }
+    .step-text { font-size: 14px; color: var(--muted); line-height: 1.7; padding-top: 4px; }
+    .related-section { max-width: 1100px; margin: 0 auto; padding: 60px 48px 100px; border-top: 1px solid var(--border); }
+    .related-section h2 { font-family: var(--font-display); font-size: 36px; font-weight: 300; margin-bottom: 36px; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    @media (max-width: 900px) { .detail-wrap { grid-template-columns: 1fr; gap: 40px; padding: 120px 20px 60px; } .detail-gallery { position: static; } .related-section { padding: 40px 20px 60px; } .related-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .related-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">ADORNO</div>
+    <ul>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#catalog">Shop</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="cart.html" class="cart-icon">🛒 <span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </nav>
+
+  <div class="detail-wrap">
+    <div class="detail-gallery">
+      <div class="main-img" id="mainImg">
+        <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="루에 휠 커버">
+      </div>
+      <div class="thumb-row">
+        <div class="thumb floral active" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="플로럴">
+        </div>
+        <div class="thumb mono" onclick="switchImage('https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png', this)">
+          <img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png" alt="갤럭시">
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-info">
+      <p class="breadcrumb"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="index.html#catalog">Shop</a> &nbsp;/&nbsp; 휠체어 데칼</p>
+      <h1>루에<br>휠 커버</h1>
+      <p class="detail-price">₩ 55,000</p>
+      <p class="detail-desc">루에(Roue)는 프랑스어로 '바퀴'를 뜻합니다. 이동할 때마다 함께 돌아가는 당신의 두 번째 패션 아이템. 고내구성 PVC 데칼로 제작되어 야외 사용에도 색 바램 없이 2년 이상 유지됩니다. 전문가 없이 셀프로 붙일 수 있으며, 잔여물 없이 깔끔하게 제거됩니다.</p>
+
+      <p class="option-label">패턴 선택</p>
+      <div class="pattern-options">
+        <div class="pattern-card active" onclick="selectPattern('플로럴 그래픽', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png', 0)">
+          <div class="pattern-preview floral"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_xxsa38xxsa38xxsa.png" alt="플로럴"></div>
+          <p class="pattern-name">플로럴</p>
+        </div>
+        <div class="pattern-card" onclick="selectPattern('갤럭시 그래픽', this, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png', 1)">
+          <div class="pattern-preview mono"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png" alt="모노"></div>
+          <p class="pattern-name">갤럭시</p>
+        </div>
+      </div>
+      <p class="option-label" id="patternLabel" style="margin-bottom:24px">플로럴 그래픽</p>
+
+      <p class="option-label">휠 사이즈</p>
+      <div class="size-options">
+        <button class="size-btn" onclick="selectSize(this)">20"</button>
+        <button class="size-btn active" onclick="selectSize(this)">22"</button>
+        <button class="size-btn" onclick="selectSize(this)">24"</button>
+        <button class="size-btn" onclick="selectSize(this)">26"</button>
+      </div>
+
+      <div class="qty-row">
+        <div class="qty-box">
+          <button onclick="changeQty(-1)">−</button>
+          <span id="qtyDisplay">1</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+        <button class="btn-cart-detail" onclick="addToCart()">장바구니 담기</button>
+      </div>
+      <p class="qty-note">* 1세트 = 좌우 2장 포함</p>
+
+      <div class="spec-section">
+        <h3>제품 사양</h3>
+        <table class="spec-table">
+          <tr><td>소재</td><td>고내구성 PVC + UV 코팅</td></tr>
+          <tr><td>두께</td><td>0.15mm</td></tr>
+          <tr><td>내구성</td><td>실외 2년 이상</td></tr>
+          <tr><td>부착 방식</td><td>기포 없는 에어-프리 접착</td></tr>
+          <tr><td>제거 방식</td><td>잔여물 없이 깔끔하게 제거 가능</td></tr>
+          <tr><td>호환 휠</td><td>알루미늄 / 스틸 / 탄소섬유</td></tr>
+          <tr><td>구성</td><td>데칼 2장 + 스퀴지 1개 + 설명서</td></tr>
+        </table>
+      </div>
+
+      <div class="install-section">
+        <h3>부착 방법</h3>
+        <div class="install-steps">
+          <div class="install-step"><span class="step-num">1</span><p class="step-text">휠 표면을 알코올 솜으로 깨끗이 닦아 유분과 먼지를 제거합니다.</p></div>
+          <div class="install-step"><span class="step-num">2</span><p class="step-text">데칼 뒷면 보호지를 천천히 떼어내며 휠 곡면에 맞춰 위치를 잡습니다.</p></div>
+          <div class="install-step"><span class="step-num">3</span><p class="step-text">스퀴지로 중앙에서 바깥쪽으로 눌러 기포를 밀어냅니다.</p></div>
+          <div class="install-step"><span class="step-num">4</span><p class="step-text">24시간 후 완전 접착됩니다. 그 전까지는 물에 닿지 않도록 합니다.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <p class="section-label">You may also like</p>
+    <h2>함께 보면 좋은 제품</h2>
+    <div class="related-grid">
+      <div class="product-card">
+        <a href="product-hearing.html"><div class="product-img hearing-img"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_nmhgxxnmhgxxnmhg.png" alt="오르 보청기"></div></a>
+        <div class="product-info"><p class="product-cat">보청기</p><h3>오르 보청기</h3><p class="product-color">미드나잇 블루</p><div class="product-footer"><span class="product-price">₩ 320,000</span><button class="add-cart" onclick="addRelated('오르 보청기 — 미드나잇 블랙', 320000)">+ 담기</button></div></div>
+      </div>
+      <div class="product-card">
+        <a href="product-cane.html"><div class="product-img cane-img"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_gf7p1jgf7p1jgf7p.png" alt="바스통 지팡이"></div></a>
+        <div class="product-info"><p class="product-cat">지팡이</p><h3>바스통 지팡이</h3><p class="product-color">갤럭시 블루</p><div class="product-footer"><span class="product-price">₩ 89,000</span><button class="add-cart" onclick="addRelated('바스통 지팡이 — 매트 블랙', 89000)">+ 담기</button></div></div>
+      </div>
+      <div class="product-card">
+        <a href="product-cane.html?color=cream"><div class="product-img cane-img cream"><img src="https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_cyutprcyutprcyut.png" alt="바스통 지팡이"></div></a>
+        <div class="product-info"><p class="product-cat">지팡이</p><h3>바스통 지팡이</h3><p class="product-color">크림 화이트</p><div class="product-footer"><span class="product-price">₩ 89,000</span><button class="add-cart" onclick="addRelated('바스통 지팡이 — 크림 화이트', 89000)">+ 담기</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner"><p class="footer-logo">ADORNO</p><p class="footer-sub">Design for every body</p><p class="footer-copy">© 2026 Adorno. All rights reserved.</p></div>
+  </footer>
+
+  <div class="toast" id="toast">장바구니에 추가되었습니다 ✓</div>
+
+  <script>
+    let cart = JSON.parse(sessionStorage.getItem('adornoCart') || '[]');
+    let qty = 1; let selectedPattern = '플로럴 그래픽'; let selectedSize = '22"';
+    function updateCartCount() { document.getElementById('cartCount').textContent = cart.reduce((s,i) => s + i.qty, 0); }
+    function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qtyDisplay').textContent = qty; }
+
+    function selectPattern(label, el, imageUrl, thumbIndex) {
+      selectedPattern = label;
+      document.getElementById('patternLabel').textContent = label;
+      document.querySelectorAll('.pattern-card').forEach(c => c.classList.remove('active'));
+      if(el) el.classList.add('active');
+      switchImage(imageUrl, document.querySelectorAll('.thumb')[thumbIndex]);
+    }
+
+    function switchImage(imageUrl, el) {
+      document.querySelector('#mainImg img').src = imageUrl;
+      if (el) {
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+      }
+    }
+
+    function selectSize(btn) { selectedSize = btn.textContent; document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+    function addToCart() {
+      const name = `루에 휠 커버 — ${selectedPattern} ${selectedSize}`;
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty += qty;
+      else cart.push({ name, price: 55000, qty });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount(); showToast();
+    }
+    function addRelated(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) existing.qty++;
+      else cart.push({ name, price, qty: 1 });
+      sessionStorage.setItem('adornoCart', JSON.stringify(cart));
+      updateCartCount(); showToast();
+    }
+    function showToast() { const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+    updateCartCount();
+
+    // 페이지 로드 시 URL 파라미터 확인 후 갤럭시 그래픽 자동 선택
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('pattern') === 'mono') {
+        const monoCard = document.querySelectorAll('.pattern-card')[1];
+        selectPattern('갤럭시 그래픽', monoCard, 'https://asoy0qm7q4hmbc0m.public.blob.vercel-storage.com/thumbnails/Gemini_Generated_Image_boyueaboyueaboyu.png', 1);
+      }
+    });
+  </script>
+</body>
+</html>
